@@ -23,8 +23,6 @@ class Node:
     def add_parent(self, parent):
         self.parents.append(parent)
     def update_pagerank(self, damp:float, num:int):
-        if self.name == "6":
-            print("6")
         neighbours = self.get_parents()
         pager_sum = sum(node.pagerank/len(node.get_children()) for node in neighbours)
         rand_walk = damp / num
