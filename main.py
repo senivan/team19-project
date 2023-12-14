@@ -109,5 +109,6 @@ if __name__ == "__main__":
     graph = Graph("graph5.txt")
     for iteration in range(NUMBER_OF_ITERATIONS):
         pagerank_iter(graph, 0.15)
+    print('PageRank:')
     print(graph.get_pageranks())
 
