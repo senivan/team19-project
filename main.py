@@ -23,6 +23,8 @@ class Node:
     def add_parent(self, parent):
         self.parents.append(parent)
     def update_pagerank(self, damp:float, num:int):
+        if self.name == "6":
+            print("6")
         neighbours = self.get_parents()
         pager_sum = sum(node.pagerank/len(node.get_children()) for node in neighbours)
         rand_walk = damp / num
@@ -76,7 +78,7 @@ class Graph:
                 line = line.strip()
                 node1, node2 = line.split("-")
                 self.add_edge(node1, node2)
-
+        self.graph.sort(key=lambda node: node.name)
     def normalize_pageranks(self):
         """
             Function to normalize pageranks.
@@ -106,7 +108,7 @@ def pagerank_iter(graph: Graph, damp: float):
     graph.normalize_pageranks()
 
 if __name__ == "__main__":
-    graph = Graph("graph4.txt")
+    graph = Graph("graph5.txt")
     for iteration in range(NUMBER_OF_ITERATIONS):
         pagerank_iter(graph, 0.15)
     print(graph.get_pageranks())
