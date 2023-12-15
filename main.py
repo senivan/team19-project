@@ -74,7 +74,7 @@ class Graph:
         with open(file_name, "r") as file:
             for line in file:
                 line = line.strip()
-                node1, node2 = line.split("-")
+                node1, node2 = line.split("->")
                 self.add_edge(node1, node2)
         self.graph.sort(key=lambda node: node.name)
     def normalize_pageranks(self):
