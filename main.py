@@ -1,3 +1,8 @@
+"""
+
+This module contains functions to calculate pagerank for oriented graph.
+
+"""
 NUMBER_OF_ITERATIONS = 100
 
 class Node:
@@ -21,6 +26,10 @@ class Node:
     def add_parent(self, parent):
         self.parents.append(parent)
     def update_pagerank(self, damp:float, num:int):
+        """
+            Function to update pagerank for node.
+            Algorithm complexity: O(n) - where n number of neighbours.
+        """
         neighbours = self.get_parents()
         pager_sum = sum(node.pagerank/len(node.get_children()) for node in neighbours)
         rand_walk = damp / num
@@ -37,10 +46,16 @@ class Graph:
         return node.get_parents()
     
     def create_unique_node(self, name: str) -> Node:
+        """
+            Function to create unique node.
+            returns node.
+            Algorithm complexity: O(n^2) - where n number of nodes in graph.
+        """
         flag = False
         for node in self.graph:
             if node.get_name() == name:
                 flag = True
+                break
         if not flag:
             new_node = Node(name)
             self.graph.append(new_node)
@@ -51,6 +66,11 @@ class Graph:
                     return node
     
     def add_edge(self, node1: str, node2: str):
+        """
+            Function to add edge between two nodes.
+            returns None.
+            Algorithm complexity: O(n^2 + n^2 + 2(n-1)) - where n number of nodes in graph.
+        """
         node1 = self.create_unique_node(node1)
         node2 = self.create_unique_node(node2)
         node1.add_child(node2)
@@ -62,9 +82,9 @@ class Graph:
             Function to read oriented graph from file.
             returns dict with nodes as keys and list of neighbours as values.
             File structure:
-            node-node
-            node-node
-            node-node
+            node->node
+            node->node
+            node->node
             ...
             # >>> read_graph("graph.txt")
             # {'1': ['2', '3'], '2': ['3', '4'], '3': ['4'], '4': ['1']}
@@ -109,6 +129,7 @@ def pagerank_iter(graph: Graph, damp: float):
         # >>> pagerank_iter(graph, 0.15)
         # >>> graph.pageranks
         # [0.25, 0.25, 0.25, 0.25]
+        Algorithm complexity: O(n^2) - where n number of nodes in graph.
     """
     for node in graph.graph:
         node.update_pagerank(damp, len(graph.graph))
