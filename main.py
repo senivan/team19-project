@@ -1,5 +1,3 @@
-
-
 NUMBER_OF_ITERATIONS = 100
 
 class Node:
@@ -70,6 +68,7 @@ class Graph:
             ...
             # >>> read_graph("graph.txt")
             # {'1': ['2', '3'], '2': ['3', '4'], '3': ['4'], '4': ['1']}
+            Algorithm complexity: O(n) - where n number of lines in file.
         """
         with open(file_name, "r") as file:
             for line in file:
@@ -85,13 +84,23 @@ class Graph:
             # >>> graph.normalize_pageranks()
             # >>> graph.pageranks
             # [0.25, 0.25, 0.25, 0.25]
+            Algorithm complexity: O(n^2) - where n number of nodes in graph.
         """
         sum_pageranks = sum(node.pagerank for node in self.graph)
         for node in self.graph:
             node.pagerank /= sum_pageranks
     
     def get_pageranks(self) -> list:
+        """
+            Function to return pageranks.
+            returns list of pageranks.
+            # >>> graph = Graph("graph.txt")
+            # >>> graph.get_pageranks()
+            # [0.25, 0.25, 0.25, 0.25]
+            Algorithm complexity: O(n) - where n number of nodes in graph.
+        """
         return [float(f"{node.pagerank:.3f}") for node in self.graph]
+
 def pagerank_iter(graph: Graph, damp: float):
     """
         Function to calculate pagerank for each node in graph.
